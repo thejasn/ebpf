@@ -62,8 +62,8 @@ Run `make` in the root of this repository to rebuild testdata in all
 subpackages. This requires Docker, as it relies on a standardized build
 environment to keep the build output stable.
 
-It is possible to regenerate data using Podman by overriding the `CONTAINER_*`
-variables: `CONTAINER_ENGINE=podman CONTAINER_RUN_ARGS= make`.
+It is possible to regenerate data using Podman by overriding the `CONTAINER_ENGINE`
+variables: `CONTAINER_ENGINE=podman make`.
 
 The toolchain image build files are kept in [testdata/docker/](testdata/docker/).
 
