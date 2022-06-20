@@ -4,6 +4,7 @@ package rlimit
 import (
 	"errors"
 	"fmt"
+	"log"
 	"sync"
 
 	"github.com/cilium/ebpf/internal"
@@ -66,6 +67,10 @@ func detectMemcgAccounting() error {
 	// rlimit set to 0, we can reasonably assume memcg accounting is supported.
 	fd, mapErr := sys.MapCreate(&attr)
 
+	fmt.Printf("\nMap Error %v", mapErr)
+
+	log.Default().Printf("\nMap Error %v", mapErr)
+
 	// Restore old limits regardless of what happened.
 	if err := unix.Prlimit(0, unix.RLIMIT_MEMLOCK, &oldLimit, nil); err != nil {
 		return fmt.Errorf("restoring old memlock rlimit: %s", err)
@@ -83,7 +88,7 @@ func detectMemcgAccounting() error {
 	}
 
 	// This shouldn't happen really.
-	return fmt.Errorf("unexpected error detecting memory cgroup accounting: %s", mapErr)
+	return fmt.Errorf("unexpected error detecting memory cgroup accounting: %v", mapErr)
 }
 
 // RemoveMemlock removes the limit on the amount of memory the current
